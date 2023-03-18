@@ -1,0 +1,18 @@
+<mat-form-field appearance="fill" class="product-create">
+    <mat-label>Name</mat-label>
+    <input matInput #txtName>
+</mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Stock</mat-label>
+    <input matInput #txtStock type="number" min="0" value="0" class="product-create">
+</mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Price</mat-label>
+    <input matInput #txtPrice type="number" min="0" value="0" class="product-create">
+</mat-form-field>
+
+<button mat-raised-button class="btn" color="primary" (click)="create(txtName, txtStock, txtPrice)">Create Product</button>
+
+<hr>
+
+<app-file-upload [options]="fileUploadOptions"></app-file-upload>
