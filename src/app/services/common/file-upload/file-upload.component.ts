@@ -2,6 +2,8 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from 'src/app/base/base.component';
 import { FileUploadDialogComponent, FileUploadDialogState } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
 import { AlertifyService, MessageType, Position } from '../../admin/alertify.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
@@ -19,7 +21,8 @@ export class FileUploadComponent {
     private alertifyService: AlertifyService,
     private customToastrService: CustomToastrService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
   ) { }
 
   @Input() options: Partial<FileUploadOptions>;
@@ -38,6 +41,7 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed: () => {
+        this.spinner.show(SpinnerType.BallAtom);
         this.httpClientService.post({
           controller: this.options.controller,
           action: this.options.action,
@@ -46,6 +50,7 @@ export class FileUploadComponent {
         }, fileData).subscribe(data => {
   
           const mesage: string = "Files uploaded successfully."
+          this.spinner.hide(SpinnerType.BallAtom)
   
           if (this.options.isAdminPage) {
             this.alertifyService.message(mesage, {
@@ -62,7 +67,7 @@ export class FileUploadComponent {
           }
         }, (errorResponse: HttpErrorResponse) => {
           const mesage: string = "An unexpected error occurred while uploading files."
-  
+          this.spinner.hide(SpinnerType.BallAtom)
           if (this.options.isAdminPage) {
             this.alertifyService.message(mesage, {
               dismissOthers: true,
@@ -80,18 +85,6 @@ export class FileUploadComponent {
       }
     });
   }
-
-  // openDialog(afterClosed: any): void {
-  //   const dialogRef = this.dialog.open(FileUploadDialogComponent, {
-  //     data: FileUploadDialogState.Yes,
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result == FileUploadDialogState.Yes) {
-  //       afterClosed();
-  //     }
-  //   });
-  // }
-
 }
 
 export class FileUploadOptions {
