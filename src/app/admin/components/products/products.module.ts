@@ -12,7 +12,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
 import { FileUploadModule } from 'src/app/services/common/file-upload/file-upload.module';
-import { DialogModule } from '@angular/cdk/dialog';
+import { DialogModule } from 'src/app/dialogs/dialog.module';
 
 
 
