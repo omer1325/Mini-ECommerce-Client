@@ -52,7 +52,6 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
         await this.productService.deleteImage(this.data as string, imageId, () => {
           this.spinner.hide(SpinnerType.BallAtom);
           var card = $(event.srcElement).parent().parent();
-          debugger;
           card.fadeOut(500);
         });
       }
