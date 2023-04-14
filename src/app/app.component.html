@@ -21,15 +21,18 @@
                             <a class="nav-link active" aria-current="page" routerLink="basket">Basket</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" routerLink="register">SignIn</a>
+                            <a class="nav-link active" aria-current="page" routerLink="register" *ngIf="!authService.isAuthenticated">SignIn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" routerLink="login">LogIn</a>
+                            <a class="nav-link active" aria-current="page" routerLink="login" *ngIf="!authService.isAuthenticated">LogIn</a>
                         </li>
                         <li>
-                            <a routerLink="admin" class="btn btn-outline-success" type="submit">Admin</a>
+                            <a class="nav-link active" aria-current="page" style="color: red; cursor: pointer;" (click)="Signout()" *ngIf="authService.isAuthenticated">Signout</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li>
+                            <a routerLink="admin" class="btn btn-outline-success" type="submit" *ngIf="authService.isAuthenticated">Admin</a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Dropdown
@@ -42,15 +45,15 @@
                                 </li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
-                        </li>
+                        </li> 
                         <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
-                        </li>
+                        </li>-->
                     </ul>
-                    <form class="d-flex" role="search">
+                    <!-- <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </nav>
