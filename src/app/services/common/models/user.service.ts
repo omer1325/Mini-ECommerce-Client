@@ -6,6 +6,7 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { Token } from 'src/app/contracts/token/token';
 import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,24 @@ export class UserService {
     }
       
     callBackFunction();
+  }
+
+  async googleLogin(user: SocialUser, callBackFunction?: () => void ) : Promise<any> {
+    const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
+      action: "google-login",
+      controller: "users"
+    }, user);
+
+    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if(tokenResponse){
+      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+
+      this.toastrService.message("Login via Google has been successfully.", "Login Successful", {
+      messageType: ToastrMessageType.Success,
+      position: ToastrPosition.TopRight
+    });
+    }
+      callBackFunction();
   }
 }
