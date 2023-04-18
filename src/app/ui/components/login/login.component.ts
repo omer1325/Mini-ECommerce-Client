@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { AuthService } from 'src/app/services/common/auth.service';
-import { UserService } from 'src/app/services/common/models/user.service';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/common/models/user.service';
 })
 export class LoginComponent extends BaseComponent {
   constructor(
-    private userService: UserService, 
+    private userAuthService: UserAuthService, 
     spinner: NgxSpinnerService, 
     private authService: AuthService, 
     private activatedRoute: ActivatedRoute,
@@ -26,13 +26,13 @@ export class LoginComponent extends BaseComponent {
       this.showSpinner(SpinnerType.BallAtom);
       switch (user.provider) {
         case "GOOGLE":
-          await userService.googleLogin(user, () => {
+          await userAuthService.googleLogin(user, () => {
             this.authService.identityCheck();
             this.hideSpinner(SpinnerType.BallAtom);
           })
           break;
         case "FACEBOOK":
-          await userService.facebookLogin(user, () => {
+          await userAuthService.facebookLogin(user, () => {
             this.authService.identityCheck();
             this.hideSpinner(SpinnerType.BallAtom);
           })
@@ -43,7 +43,7 @@ export class LoginComponent extends BaseComponent {
 
   async login(userNameOrEmail: string, password: string) {
     this.showSpinner(SpinnerType.BallAtom);
-    await this.userService.login(userNameOrEmail, password, () => {
+    await this.userAuthService.login(userNameOrEmail, password, () => {
       this.authService.identityCheck();
 
       this.activatedRoute.queryParams.subscribe(params => {
