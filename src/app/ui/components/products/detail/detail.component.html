@@ -1,0 +1,45 @@
+<div class="container" >
+    <!-- zoom container start-->
+    <div class="xzom-container">
+
+        <img src="../../../../../assets/1-min.jpg" class="xzoom" xoriginal="../../../../../assets/1.jpg">
+
+        <div class="xzoom-thumbs">
+            <a href="../../../../../assets/1.jpg">
+                <img class="xzoom-gallery" src="../../../../../assets/1-min.jpg" xpreview="../../../../../assets/1-min.jpg">
+            </a>
+            <a href="../../../../../assets/2.jpg">
+                <img class="xzoom-gallery" src="../../../../../assets/2-min.jpg">
+            </a>
+            <a href="../../../../../assets/3.jpg">
+                <img class="xzoom-gallery" src="../../../../../assets/3-min.jpg">
+            </a>
+            <a href="../../../../../assets/4.jpg">
+                <img class="xzoom-gallery" src="../../../../../assets/4-min.jpg">
+            </a>
+        </div>
+    </div>
+    <!-- zoom container end-->
+
+    <!-- description container start-->
+    <div class="description" *ngIf="productDetail">
+        <!-- <h1>{{productDetail.name}}</h1> -->
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Quas modi incidunt fuga? Ipsum cupiditate voluptas dolores placeat nostrum exercitationem expedita. 
+            Hic harum dolor aliquid asperiores autem velit natus praesentium totam.
+        </p>
+        <span >
+            {{productDetail}}
+        </span>
+        <div>
+            <button class="buy">Buy Now</button>
+            <button class="cart">Add To Basket</button>
+        </div>
+    </div>
+    <!-- description container end-->
+
+</div>
+
+
+<!-- (click)="getDetail(element.id)" -->

@@ -1,13 +1,20 @@
 <div class="row">
-    <div class="card" style="width: 18rem;float:left;margin:5px;"
+    <div class="card" style="width: 18rem;float:left;margin:5px;" 
          *ngFor="let product of products;">
-      <img width="250" height="250" *ngIf="!product.productImageFiles.length" src="../../../../assets/dafault_product.png" class="card-img-top" alt="...">
-      <img width="250" height="250" *ngIf="product.productImageFiles.length" src="{{baseUrl.url}}/{{product.imagePath}}" class="card-img-top" alt="...">
+      <div [routerLink]="['detail',product.id]">
+        <div (click)="getProductDetail(product.id)" >
+          <img width="250" height="250" *ngIf="!product.productImageFiles.length" src="../../../../assets/dafault_product.png" class="card-img-top" alt="..." >
+        </div>
+        <div (click)="getProductDetail(product.id)">
+          <img width="250" height="250" *ngIf="product.productImageFiles.length" src="{{baseUrl.url}}/{{product.imagePath}}" class="card-img-top" alt="...">
+        </div>
+      </div>
+      
   
       <div class="card-body">
         <h5 class="card-title">{{product.name}}</h5>
         <p class="card-text">Price : {{product.price | currency:'€'}} <br /> Stock : {{product.stock}} </p>
-        <a href="#" class="btn btn-success">Add To Basket</a>
+        <a class="btn btn-success" (click)="addToBasket(product)">Add To Basket</a>
       </div>
     </div>
   </div>
@@ -42,4 +49,3 @@
     </div>
     <div class="col-md-3"></div>
   </div>
-  

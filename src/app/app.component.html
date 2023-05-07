@@ -17,20 +17,24 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" routerLink="products">Produtcs</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link active" aria-current="page" routerLink="basket">Basket</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" routerLink="register"
+                                *ngIf="!authService.isAuthenticated">SignIn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" routerLink="register" *ngIf="!authService.isAuthenticated">SignIn</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" routerLink="login" *ngIf="!authService.isAuthenticated">LogIn</a>
+                            <a class="nav-link active" aria-current="page" routerLink="login"
+                                *ngIf="!authService.isAuthenticated">LogIn</a>
                         </li>
                         <li>
-                            <a class="nav-link active" aria-current="page" style="color: red; cursor: pointer;" (click)="Signout()" *ngIf="authService.isAuthenticated">Signout</a>
+                            <a class="nav-link active" aria-current="page" style="color: red; cursor: pointer;"
+                                (click)="Signout()" *ngIf="authService.isAuthenticated">Signout</a>
                         </li>
                         <li>
-                            <a routerLink="admin" class="btn btn-outline-success" type="submit" *ngIf="authService.isAuthenticated">Admin</a>
+                            <a routerLink="admin" class="btn btn-outline-success" type="submit"
+                                *ngIf="authService.isAuthenticated">Admin</a>
                         </li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -54,6 +58,10 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form> -->
+                    <div class="d-flex">
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            (click)="loadComponent()" type="submit">Basket</button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -66,9 +74,17 @@
     <div class="col-md-8"><router-outlet></router-outlet></div>
     <div class="col-md-2"></div>
 </div>
-    
+
 <ngx-spinner size="default" type="square-jelly-box" name="jelly-box"></ngx-spinner>
 <ngx-spinner size="default" type="pacman" name="pacman"></ngx-spinner>
 <ngx-spinner size="default" type="ball-scale-multiple" name="scale-multiple"></ngx-spinner>
 <ngx-spinner size="default" type="ball-spin-clockwise-fade-rotating" name="spin-clockwise"></ngx-spinner>
 <ngx-spinner size="default" type="ball-atom" name="atom"></ngx-spinner>
+
+<!-- <app-baskets></app-baskets> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <ng-template appDynamicLoadComponent></ng-template>
+    </div>
+</div>

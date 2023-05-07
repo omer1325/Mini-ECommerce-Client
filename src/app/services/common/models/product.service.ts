@@ -5,6 +5,7 @@ import { Create_Product } from 'src/app/contracts/create_product';
 import { List_Product } from 'src/app/contracts/list_product';
 import { HttpClientService } from '../http-client.service';
 import { List_Product_Image } from 'src/app/contracts/list_product_images';
+import { Detail_Product } from 'src/app/contracts/detail_product';
 
 @Injectable({
   providedIn: 'root'
@@ -32,24 +33,32 @@ export class ProductService {
         // complete: () => console.info('complete') 
   }
   
-  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void ): 
-    Promise<{ totalProductCount: number; products: List_Product[] }> {
-      const promiseData: Observable<{ totalProductCount: number; products: List_Product[] }> = this.httpClientService.get<{ totalProductCount: number; products: List_Product[] }>({
-        controller: "products",
-        queryString: `page=${page}&size=${size}`
-      })
-      // .toPromise();
-      const data = await firstValueFrom(promiseData);
-      try {
-        await data;
-        successCallBack()
-      } catch (errorResponse: any) {
-        errorCallBack(errorResponse.message)
-      }
-      // firstNumber.then(d => successCallBack())
-      //   .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message));
+  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number; products: List_Product[] }> {
+    const promiseData: Promise<{ totalProductCount: number; products: List_Product[] }> = this.httpClientService.get<{ totalProductCount: number; products: List_Product[] }>({
+      controller: "products",
+      queryString: `page=${page}&size=${size}`
+    }).toPromise();
+    
+    promiseData.then(d => successCallBack())
+      .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
+      
+    return await promiseData;
+  }
 
-      return await data;
+  async readById(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<Detail_Product[]>{
+    const readByIdObservable: Observable<Detail_Product[]> = this.httpClientService.get<Detail_Product[]>({
+      controller: "products"
+    }, id);
+
+    const data= await firstValueFrom(readByIdObservable);
+
+    try {
+      data;
+      successCallBack()
+    } catch (errorResponse: any) {
+      errorCallBack(errorResponse.message)
+    }
+    return data;
   }
 
   async delete(id: string){
