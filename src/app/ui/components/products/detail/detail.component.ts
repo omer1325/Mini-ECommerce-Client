@@ -26,7 +26,7 @@ export class DetailComponent extends BaseComponent implements OnInit {
   }
 
   id : string
-  productDetail: Detail_Product[]
+  productDetail: Detail_Product
 
   async ngOnInit() {
      this.route.params.subscribe(params => {
@@ -41,13 +41,12 @@ export class DetailComponent extends BaseComponent implements OnInit {
 
   private async getProductDetail(id: string)  {
     this.showSpinner(SpinnerType.BallAtom);
-    const productDetail:  Detail_Product[] = await this.productService.readById(id, () => this.hideSpinner(SpinnerType.BallAtom), (errorMessage) => this.alertifyService.message(errorMessage,{
+    const productDetail:  Detail_Product = await this.productService.readById(id, () => this.hideSpinner(SpinnerType.BallAtom), (errorMessage) => this.alertifyService.message(errorMessage,{
         dismissOthers: true,
         messageType: MessageType.Error,
         position: Position.TopRight
       }));
-      console.log(productDetail[0].product.name)
-      debugger
+      // console.log(productDetail[0].product.name)
       return productDetail
   }
 

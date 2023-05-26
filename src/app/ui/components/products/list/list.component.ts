@@ -93,7 +93,7 @@ export class ListComponent extends BaseComponent implements OnInit{
 
   async getProductDetail(id : string){
     this.showSpinner(SpinnerType.BallAtom);
-    const allProducts:  Detail_Product[] = await this.productService.readById(id, () => this.hideSpinner(SpinnerType.BallAtom), (errorMessage) => this.alertifyService.message(errorMessage,{
+    const allProducts:  Detail_Product = await this.productService.readById(id, () => this.hideSpinner(SpinnerType.BallAtom), (errorMessage) => this.alertifyService.message(errorMessage,{
         dismissOthers: true,
         messageType: MessageType.Error,
         position: Position.TopRight

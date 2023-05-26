@@ -4,9 +4,11 @@
 
         <img src="../../../../../assets/1-min.jpg" class="xzoom" xoriginal="../../../../../assets/1.jpg">
 
-        <div class="xzoom-thumbs">
+        <div class="xzoom-thumbs" *ngFor="let photo of productDetail.product[0].productImageFiles">
+            sadasd
             <a href="../../../../../assets/1.jpg">
-                <img class="xzoom-gallery" src="../../../../../assets/1-min.jpg" xpreview="../../../../../assets/1-min.jpg">
+                <img class="xzoom-gallery" src={{photo.path}} xpreview="../../../../../assets/1-min.jpg">
+                
             </a>
             <a href="../../../../../assets/2.jpg">
                 <img class="xzoom-gallery" src="../../../../../assets/2-min.jpg">
@@ -30,7 +32,7 @@
             Hic harum dolor aliquid asperiores autem velit natus praesentium totam.
         </p>
         <span >
-            {{productDetail}}
+            {{productDetail.product[0].price}}
         </span>
         <div>
             <button class="buy">Buy Now</button>

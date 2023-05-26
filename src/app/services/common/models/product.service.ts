@@ -45,8 +45,8 @@ export class ProductService {
     return await promiseData;
   }
 
-  async readById(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<Detail_Product[]>{
-    const readByIdObservable: Observable<Detail_Product[]> = this.httpClientService.get<Detail_Product[]>({
+  async readById(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<Detail_Product>{
+    const readByIdObservable: Observable<Detail_Product> = this.httpClientService.get<Detail_Product>({
       controller: "products"
     }, id);
 
