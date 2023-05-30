@@ -16,12 +16,12 @@ import { HubUrls } from 'src/app/constants/hub-urls';
 export class DashboardComponent extends BaseComponent {
   constructor(private alertify : AlertifyService, spinner: NgxSpinnerService, private signalRService: SignalRService) {
     super(spinner)
-    signalRService.start(HubUrls.ProductHub)
-    signalRService.start(HubUrls.OrderHub)
+    // signalRService.start(HubUrls.ProductHub)
+    // signalRService.start(HubUrls.OrderHub)
   }
   
   ngOnInit(): void{
-    this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
+    this.signalRService.on(HubUrls.ProductHub ,ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
       this.alertify.message(message,
          {
           messageType: MessageType.Notify,
@@ -29,7 +29,7 @@ export class DashboardComponent extends BaseComponent {
          })
     });
 
-    this.signalRService.on(ReceiveFunctions.OrderAddedMessageReceiveFunction, message => {
+    this.signalRService.on(HubUrls.OrderHub, ReceiveFunctions.OrderAddedMessageReceiveFunction, message => {
       this.alertify.message(message,
          {
           messageType: MessageType.Notify,
