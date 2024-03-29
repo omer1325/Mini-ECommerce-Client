@@ -37,16 +37,17 @@ export class AuthorizeMenuDialogComponent extends BaseDialog<AuthorizeMenuDialog
         selected: this.assignedRoles?.indexOf(r.name) > -1
       }
     });
-    console.log(this.listRoles)
+    // console.log(this.listRoles)
   }
 
   assignRoles(rolesComponent: MatSelectionList) {
-    console.log(rolesComponent.selectedOptions.selected.map(o => o))
+    // console.log(rolesComponent.selectedOptions.selected.map(o => o))
 
     const roles: string[] = rolesComponent.selectedOptions.selected.map(o => o._elementRef.nativeElement.textContent)
     this.spinner.show(SpinnerType.BallAtom);
     this.authorizationEndpointService.assignRoleEndpoint(roles, this.data.code, this.data.menuName,
       () => {
+        console.log(roles)
         this.spinner.hide(SpinnerType.BallAtom);
       }, error => {
 
